@@ -10,7 +10,7 @@ VAR
   upb, pos, res: LONGINT;
 BEGIN
 
-  upb :=LEN(s) - 1; (* upper bound of the index range *)
+  upb := LEN(s) - 1; (* upper bound of the index range *)
   pos := upb - ORD(s[upb]);
 
   res := LEN(s); (* default for non null-terminated *)
@@ -46,7 +46,7 @@ END init;
 PROCEDURE isEmpty(VAR s: ARRAY OF CHAR): BOOLEAN;
 
 BEGIN
- IF s[0] = nullChar THEN RETURN TRUE ELSE RETURN FALSE END
+ RETURN s[0] = nullChar
 END isEmpty;
 
 PROCEDURE terminate*(VAR s: ARRAY OF CHAR; e: INTEGER);
@@ -90,5 +90,8 @@ END nextChar;
 (* appends part of sr onto sl, starting at sr[pos] upto (but not including) the first occurence of the character ch in sr, or (if ch is not found) upto the end of sr. Upon completion pos satisfies: (pos = eos(sr)) OR (sr[pos] = ch) *)
 PROCEDURE appendUpTo(VAR sl: ARRAY OF CHAR; sr: ARRAY OF CHAR; pos: INTEGER; ch: CHAR);
 
+BEGIN
+
+END appendUpTo;
 
 END bdStrings.
