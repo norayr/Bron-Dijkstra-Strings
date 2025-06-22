@@ -1,4 +1,4 @@
-# Bjorn Dijkstra Strings (bdStrings) for Oberon
+# Bron Dijkstra Strings (bdStrings) for Oberon
 
 ## Overview
 
@@ -22,7 +22,7 @@ Problem with Traditional Approaches
 
 * Incompatible with existing null-terminated systems
 
-The Bjorn Dijkstra Solution
+The Bron Dijkstra Solution
 
 1. Store length information at the end of the string container
 
@@ -209,5 +209,5 @@ END FileNameDemo;
 
 ---
 
-This implementation brings the elegant string handling concepts from Dijkstra's paper to modern Oberon systems, providing efficient string operations while maintaining compatibility with existing paradigms.
+This implementation brings the elegant string handling concepts from Bron and Dijkstra's paper to modern Oberon systems, providing efficient string operations while maintaining compatibility with existing paradigms.
 
