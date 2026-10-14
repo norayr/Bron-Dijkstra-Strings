@@ -1,5 +1,4 @@
 MODULE bdStrings;
-IMPORT SYSTEM;
 CONST
   nullChar* = 0X;
   escVal*   = 0FFX;
@@ -16,6 +15,9 @@ BEGIN
   IF (upb < 0) OR (e < 0) OR (e > upb) THEN RETURN END;
 
   s[e] := nullChar;  (* Set terminator *)
+  (* The upstream metadata encodes positions in 16 bits. Larger containers
+     retain ordinary termination and use a bounded scan in eos. *)
+  IF upb > 65535 THEN RETURN END;
   d := upb - e;
 
   IF d <= 254 THEN
@@ -37,6 +39,11 @@ VAR
 BEGIN
   upb := LEN(s) - 1;
   IF upb < 0 THEN RETURN 0 END;  (* Empty container *)
+  IF upb > 65535 THEN
+    pos := 0;
+    WHILE (pos <= upb) & (s[pos] # nullChar) DO INC(pos) END;
+    RETURN pos
+  END;
 
   IF s[upb] = escVal THEN
     (* Two-byte encoding *)
@@ -162,6 +169,7 @@ VAR
   e: LONGINT;
 BEGIN
   e := eos(s);
+  IF pos < 0 THEN RETURN nullChar END;
   IF pos < e THEN
     INC(pos);
     RETURN s[pos-1]
@@ -188,6 +196,7 @@ BEGIN
   IF start > upb THEN RETURN END;  (* Full *)
 
   i := pos;
+  IF i < 0 THEN RETURN END;
   WHILE (i < LEN(sr)) & (sr[i] # nullChar) & (sr[i] # ch) DO
     IF start <= upb THEN
       sl[start] := sr[i];
